@@ -65,7 +65,8 @@ for mood, color in mood_colors.items():
     mask = data_sorted['mood'] == mood
     ax.plot(data_sorted.loc[mask, 'full_date'], data_sorted.loc[mask, 'mood_value'], marker='o', linestyle='None', color=color)
 
-ax.set_title(f'Average mood of {round(data["mood_value"].mean(),2) + 0.5} over {len(data)} days', fontsize=16)
+avg_mood = round(data["mood_value"].mean(),2)+0.5
+ax.set_title(f'Average mood of {avg_mood} over {len(data)} days', fontsize=16)
 ax.set_xlabel('Date', fontsize=12)
 ax.set_ylabel('Mood', fontsize=12, labelpad=25)
 
@@ -88,7 +89,7 @@ ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m'))
 
 min_date = data_sorted['full_date'].min()
 max_date = data_sorted['full_date'].max()
-graph_padding = 25 
+graph_padding = 25
 date_range = max_date - min_date
 pixel_width = fig.get_figwidth() * DPI
 date_padding = date_range * (graph_padding / pixel_width)
@@ -96,7 +97,7 @@ ax.set_xlim(min_date - date_padding, max_date + date_padding)
 
 fig.autofmt_xdate()
 
-ax.text(0, 1, '*Average mood is a 3',
+ax.text(0, 1, f'*Average mood is {avg_mood}',
         horizontalalignment='left',
         verticalalignment='bottom',
         transform=ax.transAxes)
